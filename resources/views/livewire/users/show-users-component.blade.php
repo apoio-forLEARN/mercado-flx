@@ -1,7 +1,7 @@
 <div>
     @include('components.form.user')
     <hr/>
-    <table class="table-auto">
+    <table class="table">
         <thead>
             <th>Nome</th>
             <th>Email</th>

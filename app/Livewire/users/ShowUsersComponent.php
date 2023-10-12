@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Users;
 
 use App\Models\User;
 use Livewire\Component;
@@ -30,7 +30,7 @@ class ShowUsersComponent extends Component
     public function render()
     {
         $users = User::paginate();
-        return view('livewire.show-users-component',[
+        return view('livewire.users.show-users-component',[
             'users' => $users,
         ]);
     }
