@@ -10,6 +10,8 @@ class RoleEnum{
     public const ROLE_CLIENT = "ROLE_CLIENT";
     public const ROLE_EMPLOYEE = "ROLE_EMPLOYEE";
     public const ROLE_DEV = "ROLE_DEV";
+    public const ROLE_ADMIN_CATEGORY_PRODUCT = "ROLE_ADMIN_CATEGORY_PRODUCT";
+    public const ROLE_ADMIN_PRODUCT = "ROLE_ADMIN_PRODUCT";
 
     public static function values(){
         return [
@@ -18,6 +20,8 @@ class RoleEnum{
             new Role(["code"=>RoleEnum::ROLE_CLIENT, "name"=>"cargo cliente","description" => "operações realizado pelos clientes"]),
             new Role(["code"=>RoleEnum::ROLE_EMPLOYEE, "name"=>"cargo funcionário","description" => "operações realizado pelos funcionários"]),
             new Role(["code"=>RoleEnum::ROLE_DEV, "name"=>"cargo desenvolvedor","description" => "operações realizado pelos desenvolvedores"]),
+            new Role(["code"=>RoleEnum::ROLE_ADMIN_CATEGORY_PRODUCT, "name"=>"cargo administrador de categoria de produto","description" => "administra todas permissões (criar, eliminar, actualizar, visualizar) para categoria de produto"]),
+            new Role(["code"=>RoleEnum::ROLE_ADMIN_PRODUCT, "name"=>"cargo administrador de produto","description" => "administra todas permissões (criar, eliminar, actualizar, visualizar) para produto"]),
         ];
     }
 

@@ -1,8 +1,10 @@
 <?php
 namespace App\Enum;
 
-class PermissionEntity{
+class PermissionEntityEnum{
     public const ROLE = "ROLE";
     public const USER = "USER";
     public const PERMISSION = "PERMISSION";
+    public const CATEGORY_PRODUCT="CATEGORY_PRODUCT";
+    public const PRODUCT = "PRODUCT";
 }

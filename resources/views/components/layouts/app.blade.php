@@ -1,8 +1,6 @@
-@extends('layouts.root')
-@section('content')
+@extends('layouts.app')
+@section('slot')
     @parent
-    <section class="container">
-        {{ $slot }}
-    </section>
+    {{ $slot }}
 @endsection
 

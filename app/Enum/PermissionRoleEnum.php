@@ -18,6 +18,17 @@ class PermissionRoleEnum{
             PermissionRoleEnum::create(PermissionEnum::PERMISSION_STORE, RoleEnum::ROLE_EMPLOYEE),
             PermissionRoleEnum::create(PermissionEnum::PERMISSION_UPDATE, RoleEnum::ROLE_EMPLOYEE),
             PermissionRoleEnum::create(PermissionEnum::PERMISSION_DELETE, RoleEnum::ROLE_EMPLOYEE),
+
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_CATEGORY_PRODUCT_VIEW, RoleEnum::ROLE_ADMIN_CATEGORY_PRODUCT),
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_CATEGORY_PRODUCT_STORE, RoleEnum::ROLE_ADMIN_CATEGORY_PRODUCT),
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_CATEGORY_PRODUCT_UPDATE, RoleEnum::ROLE_ADMIN_CATEGORY_PRODUCT),
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_CATEGORY_PRODUCT_DELETE, RoleEnum::ROLE_ADMIN_CATEGORY_PRODUCT),
+
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_PRODUCT_VIEW, RoleEnum::ROLE_ADMIN_PRODUCT),
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_PRODUCT_STORE, RoleEnum::ROLE_ADMIN_PRODUCT),
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_PRODUCT_UPDATE, RoleEnum::ROLE_ADMIN_PRODUCT),
+            PermissionRoleEnum::create(PermissionEnum::PERMISSION_PRODUCT_DELETE, RoleEnum::ROLE_ADMIN_PRODUCT),
+
         ];
     }
 

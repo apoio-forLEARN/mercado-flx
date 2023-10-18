@@ -19,4 +19,5 @@ class RoleSeeder extends Seeder
         foreach($roles as $role)
            $roleService->saveOrUpdateByCode($role);
     }
+
 }
