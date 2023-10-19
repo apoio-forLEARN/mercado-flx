@@ -1,115 +1,63 @@
-<?php
-
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Lockout;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Rule;
-use Livewire\Volt\Component;
-
-new #[Layout('layouts.guest')] class extends Component
-{
-    #[Rule(['required', 'string', 'email'])]
-    public string $email = '';
-
-    #[Rule(['required', 'string'])]
-    public string $password = '';
-
-    #[Rule(['boolean'])]
-    public bool $remember = false;
-
-    public function login(): void
-    {
-        $this->validate();
-
-        $this->ensureIsNotRateLimited();
-
-        if (! auth()->attempt($this->only(['email', 'password'], $this->remember))) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        }
-
-        RateLimiter::clear($this->throttleKey());
-
-        session()->regenerate();
-
-        $this->redirect(
-            session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
-        );
-    }
-
-    protected function ensureIsNotRateLimited(): void
-    {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
-            return;
-        }
-
-        event(new Lockout(request()));
-
-        $seconds = RateLimiter::availableIn($this->throttleKey());
-
-        throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
-        ]);
-    }
-
-    protected function throttleKey(): string
-    {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
-    }
-}; ?>
-
-<div>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form wire:submit="login">
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember" class="inline-flex items-center">
-                <input wire:model="remember" id="remember" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}" wire:navigate>
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</div>
+<section class="flex justify-center items-center h-screen py-1 px-1 bg-emerald-200">
+    <div class="fixed top-0 left-0 right-0 p-2">
+        <a href="/" class="text-xl bg-white rounded-full w-4 h-4 py-1 px-1 items-center" wire:navigate>
+            <i class='bx bxs-left-arrow'></i>
+        </a>
+    </div>
+    <div class="bg-white w-1/3 font-mono relative">
+        <form class="border rounded p-8 space-y-3" wire:submit="login">
+            @include('imports.fieldset-social-login')
+            <fieldset class="flex flex-col gap-2">
+                <legend class="text-center pb-2">Credências</legend>
+                <div class="relative z-0 w-full mb-6 group">
+                    <input type="email" name="email" id="email"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " required wire:model="email" />
+                    <label for="email"
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <i class='bx bxs-envelope'></i>
+                        <span class="ml-2">Email</span>
+                    </label>
+                    <div class="relative z-0 w-full mb-6 mt-3 group">
+                        <input type="password" name="password" id="password"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required wire:model="password" />
+                        <label for="password"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class='bx bxs-lock-alt'></i>
+                            <span class="ml-2">Senha</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-center">
+                            <input id="remember" type="checkbox" value=""
+                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                                required>
+                        </div>
+                        <label for="remember"
+                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Lembra-se de
+                            mí</label>
+                    </div>
+                    <div>
+                        <a href="{{ route('password.request') }}"
+                            class="font-medium text-red-600 dark:text-red-500 hover:underline" wire:navigate>
+                            <i class='bx bxs-key'></i>
+                            <span>Esqueçe a senha.</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{{ route('register') }}"
+                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline" wire:navigate>
+                            <i class='bx bxs-user-account'></i>
+                            <span>Não tenho uma conta.</span>
+                        </a>
+                    </div>
+                    <button type="submit"
+                        class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <i class='bx bxs-log-in'></i>
+                        <span>Entrar</span>
+                    </button>
+            </fieldset>
+        </form>
+    </div>
+</section>

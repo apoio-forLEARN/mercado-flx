@@ -11,6 +11,6 @@ class CategoryProduct extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [MigrationUtil::ID,'image','name'];
+    protected $fillable = [MigrationUtil::ID,'image','name','code'];
 
 }

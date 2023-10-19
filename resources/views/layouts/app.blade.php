@@ -8,28 +8,20 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
+
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
+        @yield('css')
+        {{-- @livewireStyles --}}
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-zinc-100 dark:bg-zinc-900">
-
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <main>
-                @yield('slot')
-            </main>
-
-        </div>
-        @livewireScripts
+    <body class="{{ $bodyCls ?? 'bg-zinc-100' }}">
+        <main>
+            @yield('slot')
+        </main>
+        {{-- @livewireScripts --}}
         <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+        @yield('script')
     </body>
 </html>

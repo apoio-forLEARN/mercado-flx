@@ -1,11 +1,50 @@
-<div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-    @auth
-        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Dashboard</a>
-    @else
-        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Log in</a>
-
-        @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Register</a>
-        @endif
-    @endauth
-</div>
+<nav class="bg-emerald-200">
+    <div class="mx-auto px-3 h-20 flex items-center justify-between">
+        <div class="font-normal uppercase text-2xl">
+            {{ env('VAR_SITE_NAME') }}
+        </div>
+        <ul class="flex items-center space-x-4">
+            <li>
+                <a class="space-x-2 text-xl text-gray-600 hover:text-gray-800">
+                    <i class="bx bx-shopping-bag"></i>
+                    <span>Produto</span>
+                </a>
+            </li>
+            <li>
+                <a class="space-x-2 text-xl text-gray-600 hover:text-gray-800">
+                    <i class="bx bx-wallet"></i>
+                    <span>Compra</span>
+                </a>
+            </li>
+            <li>
+                <a class="space-x-2 text-xl text-gray-600 hover:text-gray-800">
+                    <i class="bx bx-store-alt"></i>
+                    <span>Encomenda</span>
+                </a>
+            </li>
+            @auth
+                <li>
+                    <a href="{{ route('dashboard') }}" class="space-x-2 text-xl text-white bg-blue-400 px-2 py-2 rounded-xl" wire:navigate>
+                        <i class='bx bx-expand-alt'></i>
+                        <span>Painel</span>
+                    </a>
+                </li>
+            @else
+                <li>
+                    <a href="{{ route('login') }}" class="space-x-2 text-xl text-white bg-orange-400 px-2 py-2 rounded-xl" wire:navigate>
+                        <i class="bx bx-user"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+                @if (Route::has('register'))
+                    <li>
+                        <a href="{{ route('register') }}" class="space-x-2 text-xl text-white bg-yellow-400 px-2 py-2 rounded-xl" wire:navigate>
+                            <i class="bx bx-file"></i>
+                            <span>Registra</span>
+                        </a>
+                    </li>
+                @endif
+            @endauth
+        </ul>
+    </div>
+</nav>
