@@ -1,21 +1,8 @@
-@extends('layouts.app')
-@section('slot')
-    @parent
-
-    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight p-2">
-        {{ __('Dashboard') }}
-    </h2>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-            <form action="{{route('logaut')}}">
-
-            </form>
-        </div>
-    </div>
-@endsection
+<section class="bg-white rounded-sm relative p-2">
+     <div class="flex justify-center">
+         <img class="rounded w-36 h-36" src="{{ asset('img/person.jpg') }}" alt="Extra large avatar">
+     </div>
+     <div class="mt-10">
+         @include('imports.model.user', ['password_hidden' => true])
+     </div>
+ </section>

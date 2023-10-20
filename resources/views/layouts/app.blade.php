@@ -14,14 +14,15 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @yield('css')
-        {{-- @livewireStyles --}}
+
     </head>
     <body class="{{ $bodyCls ?? 'bg-zinc-100' }}">
         <main>
             @yield('slot')
         </main>
-        {{-- @livewireScripts --}}
+
         <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
         @yield('script')
     </body>
 </html>

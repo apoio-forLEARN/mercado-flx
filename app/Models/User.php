@@ -40,4 +40,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function copyAuthUser(){
+        $auth = auth()->user();
+        $this->name = $auth->name ?? '';
+        $this->email = $auth->email ?? '';
+        $this->birthday = $auth->birthday ?? '';
+        $this->phone = $auth->phone ?? '';
+    }
+
 }

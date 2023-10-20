@@ -15,10 +15,10 @@ use Livewire\Attributes\Rule;
 class LoginComponent extends Component
 {
     #[Rule(['required', 'email'])]
-    public string $email = 'sedrac@gmail.com';
+    public string $email = 'user.super@exemple.com';
 
     #[Rule(['required', 'string'])]
-    public string $password = '';
+    public string $password = 'password';
 
     #[Rule(['boolean'])]
     public bool $remember = false;

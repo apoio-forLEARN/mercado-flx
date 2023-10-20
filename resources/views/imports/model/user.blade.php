@@ -1,4 +1,4 @@
-@if (!isset($password_hidden) || (isset($password_hidden) && $password_hidden))
+@if (!isset($password_hidden) || (isset($password_hidden) && !$password_hidden))
     <div class="grid md:grid-cols-2 md:gap-6">
         <div class="relative z-0 w-full mb-6 group">
             <input type="password" name="password" id="password"
@@ -47,8 +47,10 @@
             wire:model="gender">
             <option selected>Seleciona o gênero</option>
             @isset($genders)
-                @foreach ($genders as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
+                @foreach ($genders as $option)
+                    <option value="{{ $option->code }}" @if($option->selected) seleted @endif>
+                        {{ $option->label }}
+                    </option>
                 @endforeach
             @endisset
         </select>

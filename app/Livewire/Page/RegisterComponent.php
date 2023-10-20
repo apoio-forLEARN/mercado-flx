@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Page;
 
-use App\Components\GenderSelector;
+use App\Components\GenderOption;
 use Livewire\Component;
 
 use App\Providers\RouteServiceProvider;
@@ -54,7 +54,7 @@ class RegisterComponent extends Component
 
     public function render()
     {
-        $genders = GenderSelector::factory()->elements();
+        $genders = GenderOption::factory()->elements();
         return view('livewire.pages.auth.register',compact('genders'));
     }
 
