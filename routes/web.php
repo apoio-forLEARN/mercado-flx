@@ -5,16 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-// Route::view('dashboard', 'dashboard')
-//     ->middleware(['auth', 'verified'])
-//     ->name('dashboard');
+Route::get('dashboard',DashboardComponent::class)->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('dashboard',DashboardComponent::class)
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::middleware('auth')->group( function(){
+    Route::resource('roles', App\Livewire\Role\RoleComponent::class);
+    Route::resource('permissions', App\Livewire\Permission\PermissionComponent::class);
+});
 
-require __DIR__.'/auth.php';
+require_once __DIR__.'/auth.php';

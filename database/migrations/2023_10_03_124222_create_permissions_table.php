@@ -1,6 +1,7 @@
 <?php
 
 use App\Enum\PermissionGroupEnum;
+use App\Models\Permission;
 use App\Util\MigrationUtil;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,11 +16,12 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             MigrationUtil::primaryKey($table);
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->string('description');
-            $table->string('entity')->default('NONE');
-            $table->enum('group',PermissionGroupEnum::groups())->default(PermissionGroupEnum::NONE);
+            $table->string(Permission::CODE)->unique();
+            $table->string(Permission::NAME);
+            $table->string(Permission::DESCRIPTION);
+            $table->string(Permission::ENTITY)->default('NONE');
+            $table->enum(Permission::GROUP,PermissionGroupEnum::groups())
+                  ->default(PermissionGroupEnum::NONE);
             MigrationUtil::commonAttribute($table);
         });
     }

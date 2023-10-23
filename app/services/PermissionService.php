@@ -7,11 +7,15 @@ class PermissionService{
 
     public function saveOrUpdateByCode(Permission $permission){
         $data = $permission->getAttributes();
-        Permission::updateOrCreate(['code' => $data['code']],$data);
+        Permission::updateOrCreate([ Permission::CODE => $data[Permission::CODE] ],$data);
     }
 
     public function findByCode(string $code){
-        return Permission::where('code',$code)->first();
+        return Permission::where(Permission::CODE,$code)->first();
+    }
+
+    public function findAll(){
+        return Permission::paginate();
     }
 
 }

@@ -7,11 +7,15 @@ class RoleService{
 
     public function saveOrUpdateByCode(Role $role){
         $data = $role->getAttributes();
-        Role::updateOrCreate(['code' => $data['code']],$data);
+        Role::updateOrCreate([ Role::CODE => $data[Role::CODE] ],$data);
     }
 
     public function findByCode(string $code){
-        return Role::where('code',$code)->first();
+        return Role::where(Role::CODE,$code)->first();
+    }
+
+    public function findAll(){
+        return Role::paginate();
     }
 
 }

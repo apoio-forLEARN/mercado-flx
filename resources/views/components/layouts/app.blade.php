@@ -14,6 +14,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
     @yield('css')
 
 </head>
@@ -30,6 +31,7 @@
     @endauth
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    @livewireScripts
     @yield('script')
 </body>
 

@@ -11,7 +11,20 @@ class Permission extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [MigrationUtil::ID, 'code','name','description'];
+    public const CODE = "code";
+    public const NAME = "name";
+    public const GROUP = "group";
+    public const ENTITY = "entity";
+    public const DESCRIPTION = "description";
+
+    protected $fillable = [
+        MigrationUtil::ID,
+        Permission::CODE,
+        Permission::NAME,
+        Permission::GROUP,
+        Permission::ENTITY,
+        Permission::DESCRIPTION
+    ];
 
     public function roles(){
         return $this->belongsToMany(Role::class);

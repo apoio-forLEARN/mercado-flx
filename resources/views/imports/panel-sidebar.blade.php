@@ -171,10 +171,12 @@
         </ul>
     </div>
 </aside>
-<div class="p-4 sm:ml-64  h-screen pt-20">
+<div class="p-4 sm:ml-64 h-screen pt-20">
     <main>
         @isset($slot)
             {{ $slot }}
+        @else
+            @yield('slot')
         @endisset
     </main>
 </div>
